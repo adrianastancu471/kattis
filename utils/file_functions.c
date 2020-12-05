@@ -69,3 +69,60 @@ char** read_char_matrix(int file, int m, int n)
     }
     return matrix;
 }
+
+/* source file, m, n - dimensions */
+int** read_int_matrix(int file, int m, int n)
+{
+    int **matrix = (int**) alloc_matrix(m, n, sizeof(int));
+    char c, d;
+    for(int i=0; i<m; i++)
+    {
+        for(int j=0; j<n; j++)
+        {
+            read(file, &d, sizeof(char));
+            matrix[i][j]=d-'0';
+        }
+
+        read(file, &c, sizeof(char));
+    }
+    return matrix;
+}
+
+void write_char_matrix(int file, int m, int n, char** matrix)
+{
+    for(int i=0; i<m; i++)
+    {
+        for(int j=0; j<n; j++)
+        {
+            write(file, &matrix[i][j], sizeof(char));
+        }
+
+        write(file, "\n", sizeof(char));
+    }
+}
+
+void write_int_matrix(int file, int m, int n, int** matrix)
+{
+    for(int i=0; i<m; i++)
+    {
+        for(int j=0; j<n; j++)
+        {
+            write(file, &matrix[i][j], sizeof(char));
+        }
+
+        write(file, "\n", sizeof(char));
+    }
+}
+
+char** copy_char_matrix(char **matrix, int m, int n)
+{
+    char **copy = (char**)alloc_matrix(m, n, sizeof(char));
+    for(int i=0; i<m; i++)
+    {
+        for(int j=0; j<n; j++)
+        {
+            copy[i][j] = matrix[i][j];
+        }
+    }
+    return copy;
+}
